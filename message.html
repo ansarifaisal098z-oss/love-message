@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>For You ❤️</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #160b12, #3a1020, #170b18);
+      color: white;
+      overflow: hidden;
+    }
+
+    .container {
+      width: min(90%, 560px);
+      text-align: center;
+    }
+
+    /* PASSWORD */
+
+    .lock {
+      font-size: 70px;
+      margin-bottom: 20px;
+      animation: pulse 2s infinite;
+    }
+
+    h1 {
+      font-size: 30px;
+    }
+
+    .subtitle {
+      color: #d8cbd0;
+      margin-bottom: 30px;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #714052;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.08);
+      color: white;
+      outline: none;
+      font-size: 17px;
+      text-align: center;
+    }
+
+    input::placeholder {
+      color: #bcaeb4;
+    }
+
+    button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 14px;
+      background: #e85b82;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #f06b91;
+    }
+
+    .error {
+      color: #ff8da9;
+      margin-top: 15px;
+      display: none;
+    }
+
+    /* MESSAGE */
+
+    .message {
+      display: none;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 24px;
+      padding: 30px;
+      line-height: 1.8;
+      text-align: left;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      animation: appear 1s ease;
+    }
+
+    .heart-small {
+      text-align: center;
+      font-size: 45px;
+      margin-bottom: 15px;
+    }
+
+    .message p {
+      margin: 0;
+      font-size: 17px;
+    }
+
+    /* NEXT BUTTON */
+
+    #nextButton {
+      display: block;
+      width: 180px;
+      margin: 25px auto 0;
+    }
+
+    /* HEART SCREEN */
+
+    .heartScreen {
+      display: none;
+      animation: appear 1s ease;
+    }
+
+    .heartTitle {
+      font-size: 25px;
+      margin-bottom: 30px;
+    }
+
+    .bigHeart {
+      position: relative;
+      width: 230px;
+      height: 230px;
+      margin: auto;
+      cursor: pointer;
+      animation: heartbeat 1.3s infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .bigHeart::before,
+    .bigHeart::after {
+      content: "";
+      position: absolute;
+      top: 35px;
+      width: 125px;
+      height: 190px;
+      background: #ff3d6e;
+      border-radius: 100px 100px 0 0;
+    }
+
+    .bigHeart::before {
+      left: 105px;
+      transform: rotate(45deg);
+      transform-origin: 0 100%;
+    }
+
+    .bigHeart::after {
+      left: 0;
+      transform: rotate(-45deg);
+      transform-origin: 100% 100%;
+    }
+
+    .tapText {
+      position: relative;
+      z-index: 5;
+      font-size: 27px;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      transform: translateY(15px);
+    }
+
+    /* LOVE SCREEN */
+
+    .loveScreen {
+      display: none;
+      animation: loveAppear 1.2s ease;
+    }
+
+    .loveHeart {
+      font-size: 130px;
+      animation: heartbeat 1s infinite;
+      filter: drop-shadow(0 0 25px #ff4775);
+    }
+
+    .loveText {
+      margin-top: 20px;
+      font-size: 30px;
+      font-weight: bold;
+      line-height: 1.5;
+      color: #fff;
+      text-shadow: 0 0 15px #ff4775;
+    }
+
+    .loveEmojis {
+      font-size: 45px;
+      margin-top: 20px;
+      animation: float 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.08);
+      }
+    }
+
+    @keyframes heartbeat {
+      0%, 100% {
+        transform: scale(1);
+      }
+
+      15% {
+        transform: scale(1.12);
+      }
+
+      30% {
+        transform: scale(1);
+      }
+
+      45% {
+        transform: scale(1.12);
+      }
+
+      60% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes loveAppear {
+      from {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- ================= PASSWORD ================= -->
+
+    <div id="loginScreen">
+
+      <div class="lock">🔐</div>
+
+      <h1>Ek chhoti si baat ❤️</h1>
+
+      <div class="subtitle">
+        Is message ko dekhne ke liye password daalo
+      </div>
+
+      <input
+        type="password"
+        id="password"
+        placeholder="Password"
+        onkeydown="if(event.key === 'Enter') unlock()"
+      >
+
+      <button onclick="unlock()">
+        Open ❤️
+      </button>
+
+      <div class="error" id="error">
+        Password galat hai ❤️
+      </div>
+
+    </div>
+
+
+    <!-- ================= MESSAGE ================= -->
+
+    <div class="message" id="message">
+
+      <div class="heart-small">
+        ❤️
+      </div>
+
+      <p>
+        Mujhe pata hai shayad galti meri hai, aur main ye justify nahi karna chahta.
+        Bas itna kehna hai ki jab tum mujhse baat nahi karti na, to main sach mein
+        bahut akela aur upset feel karta hoon.
+        <br><br>
+
+        Baar-baar tumhe message karne ka mann karta hai, phir darr lagta hai ki
+        kahin main tumhe aur pareshan na kar doon. Isliye kabhi-kabhi main khud se
+        bhi ladta rehta hoon ki tumhe message karun ya nahi.
+        <br><br>
+
+        Main tumhe pareshan karna nahi chahta aur na hi tum par kisi tarah ka
+        pressure dalna chahta hoon. Bas chahta hoon ki tum meri ye feeling samjho.
+        Tum mere liye bahut important ho, isliye tumhari khamoshi mujhe bahut
+        affect karti hai.
+        <br><br>
+
+        Shayad isi wajah se main kabhi-kabhi zyada kar deta hoon.
+        Bas meri baat ko galat mat samajhna… main sirf nahi chahta ki meri kisi
+        harkat ki wajah se tum mujhse door ho jao. ❤️
+      </p>
+
+      <button id="nextButton" onclick="showHeart()">
+        NEXT ❤️
+      </button>
+
+    </div>
+
+
+    <!-- ================= BIG HEART ================= -->
+
+    <div class="heartScreen" id="heartScreen">
+
+      <div class="heartTitle">
+        Ek aur chhoti si baat... ❤️
+      </div>
+
+      <div class="bigHeart" onclick="showLove()">
+        <div class="tapText">
+          TAP
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- ================= LOVE ================= -->
+
+    <div class="loveScreen" id="loveScreen">
+
+      <div class="loveHeart">
+        ❤️
+      </div>
+
+      <div class="loveText">
+        I LOVE YOU<br>
+        MERI PYARI JAANA JI
+        MERE PAAS BS TUM HO 
+        BS TUM 🥺
+      </div>
+
+      <div class="loveEmojis">
+        💕 🥰 ❤️ 😘 💖
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    // ============================
+    // PASSWORD
+    // ============================
+
+    const PASSWORD = "1234";
+
+
+    // ============================
+    // UNLOCK
+    // ============================
+
+    function unlock() {
+
+      const enteredPassword =
+        document.getElementById("password").value;
+
+      const loginScreen =
+        document.getElementById("loginScreen");
+
+      const message =
+        document.getElementById("message");
+
+      const error =
+        document.getElementById("error");
+
+
+      if (enteredPassword === PASSWORD) {
+
+        loginScreen.style.display = "none";
+        message.style.display = "block";
+        error.style.display = "none";
+
+      } else {
+
+        error.style.display = "block";
+
+        document.getElementById("password").value = "";
+
+      }
+    }
+
+
+    // ============================
+    // NEXT
+    // ============================
+
+    function showHeart() {
+
+      document.getElementById("message").style.display = "none";
+
+      document.getElementById("heartScreen").style.display = "block";
+
+    }
+
+
+    // ============================
+    // TAP HEART
+    // ============================
+
+    function showLove() {
+
+      document.getElementById("heartScreen").style.display = "none";
+
+      document.getElementById("loveScreen").style.display = "block";
+
+    }
+
+  </script>
+
+</body>
+</html>
